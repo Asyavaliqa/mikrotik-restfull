@@ -1,7 +1,6 @@
 package routeros
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/didintri196/mikrotik-restfull/domain/models"
 	"github.com/rs/zerolog"
@@ -15,6 +14,7 @@ type RouterOS struct {
 	*routeros.Reply
 	Error error
 	zerolog.Logger
+	Query []string
 }
 
 type Configs struct {
@@ -28,10 +28,10 @@ func New(config Configs) RouterOS {
 		zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	}
 
-	return RouterOS{config.Auth, &routeros.Reply{}, nil, RegisterLog()}
+	return RouterOS{config.Auth, &routeros.Reply{}, nil, RegisterLog(), []string{}}
 }
 
-func (util *RouterOS) Command(query string) *RouterOS {
+func (util *RouterOS) Run(query []string) *RouterOS {
 	host := fmt.Sprintf("%s:%s", util.Ip, util.Port)
 	c, err := routeros.Dial(host, util.Username, util.Password)
 	if err != nil {
@@ -41,35 +41,17 @@ func (util *RouterOS) Command(query string) *RouterOS {
 	}
 	defer c.Close()
 
-	re, err := c.RunArgs(strings.Split(query, " "))
+	re, err := c.RunArgs(query)
 	if err != nil {
 		util.Error = err
 		return util
 	}
 	util.Reply = re
-	util.Debug().Msg(fmt.Sprintf("| DEBUG | [%d Fields] %s", len(re.Re[0].Map), query))
 	return util
 }
 
-func (util *RouterOS) First(bind interface{}) *RouterOS {
-	// Deteksi Error
-	if util.DetectError() {
-		return util
-	}
-
-	// Parsing Data Mikrotik
-	jsonbody, err := json.Marshal(util.Reply.Re[0].Map)
-	if err != nil {
-		// do error check
-		util.Error = err
-		return util
-	}
-
-	if err := json.Unmarshal(jsonbody, bind); err != nil {
-		// do error check
-		util.Error = err
-		return util
-	}
+func (util *RouterOS) Command(query string) *RouterOS {
+	util.Query = []string{query}
 	return util
 }
 

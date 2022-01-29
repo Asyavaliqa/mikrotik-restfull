@@ -11,7 +11,7 @@ type ResourceRepository struct {
 }
 
 func (repo ResourceRepository) Read(resource *models.Resource) (err error) {
-	return repo.Command("/system/resource/print").First(resource).Error
+	return repo.Command("/system/resource").Print(resource).Error
 }
 
 func NewResourceRepository(routerOS *routeros.RouterOS) interfaces.IResourceRepository {

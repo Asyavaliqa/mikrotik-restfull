@@ -10,22 +10,53 @@ import (
 func main() {
 	config := routeros.Configs{
 		Auth: models.Auth{
-			Ip:       "192.168.4.1",
-			Port:     "8728",
+			Ip:       "127.0.0.1",
+			Port:     "28728",
 			Username: "admin",
-			Password: "segopecel12s",
+			Password: "",
 		},
 		Debug: true,
 	}
 	connRouteOS := routeros.New(config)
 
-	repo := repositories.NewResourceRepository(&connRouteOS)
-	var data models.Resource
+	//repo := repositories.NewResourceRepository(&connRouteOS)
+	//var data models.Resource
+	//repo.Read(&data)
+	//fmt.Println(data)
 
-	err := repo.Read(&data)
+	// ========================== //
+
+	//repo := repositories.NewSecretRepository(&connRouteOS)
+	//data := models.Secret{
+	//	Name:     faker.Email(),
+	//	Password: "passwordX",
+	//	Service:  "any",
+	//	Profile:  "default",
+	//	Comment:  faker.Name(),
+	//}
+	//
+	//err := repo.Add(data)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+
+	//======================//
+
+	repo := repositories.NewSecretRepository(&connRouteOS)
+	//data := models.Secret{
+	//	Name:     faker.Email(),
+	//	Password: "passwordX",
+	//	Service:  "any",
+	//	Profile:  "default",
+	//	Comment:  faker.Name(),
+	//}
+	//
+	data, err := repo.Browse()
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	fmt.Println(data)
+	//fmt.Println(data[1].Name)
+
 }
