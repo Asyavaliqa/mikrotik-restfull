@@ -1,10 +1,17 @@
 package routeros
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+	"strings"
+)
 
 func (util *RouterOS) Scan(bind interface{}) *RouterOS {
 	//set action last command
 	util.Query[len(util.Query)-1] += "/print"
+
+	//cek filter
+	util.Query = append(util.Query, util.Filter...)
 
 	// Run Query
 	util.Run(util.Query)
@@ -31,5 +38,8 @@ func (util *RouterOS) Scan(bind interface{}) *RouterOS {
 		util.Error = err
 		return util
 	}
+
+	util.Debug().Msg(fmt.Sprintf("| DEBUG | [%d Rows] %s", len(util.Re), strings.Join(util.Query, " ")))
+
 	return util
 }

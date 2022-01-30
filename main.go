@@ -42,21 +42,25 @@ func main() {
 
 	//======================//
 
-	repo := repositories.NewSecretRepository(&connRouteOS)
-	//data := models.Secret{
-	//	Name:     faker.Email(),
-	//	Password: "passwordX",
-	//	Service:  "any",
-	//	Profile:  "default",
-	//	Comment:  faker.Name(),
+	//repo := repositories.NewSecretRepository(&connRouteOS)
+	//data, err := repo.Browse()
+	//if err != nil {
+	//	fmt.Println(err)
 	//}
 	//
-	data, err := repo.Browse()
+	//fmt.Println(data)
+
+	//=====================//
+
+	repo := repositories.NewSecretRepository(&connRouteOS)
+	filter := models.Secret{
+		Comment: "asd",
+	}
+	data, err := repo.Read(filter)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	fmt.Println(data)
-	//fmt.Println(data[1].Name)
 
 }

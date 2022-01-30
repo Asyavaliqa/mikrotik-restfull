@@ -14,7 +14,8 @@ type RouterOS struct {
 	*routeros.Reply
 	Error error
 	zerolog.Logger
-	Query []string
+	Query  []string
+	Filter []string
 }
 
 type Configs struct {
@@ -28,7 +29,7 @@ func New(config Configs) RouterOS {
 		zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	}
 
-	return RouterOS{config.Auth, &routeros.Reply{}, nil, RegisterLog(), []string{}}
+	return RouterOS{config.Auth, &routeros.Reply{}, nil, RegisterLog(), []string{}, []string{}}
 }
 
 func (util *RouterOS) Run(query []string) *RouterOS {

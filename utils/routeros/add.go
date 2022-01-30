@@ -18,8 +18,10 @@ func (util *RouterOS) Add(data interface{}) *RouterOS {
 	for i := 0; i < stmt.Elem().NumField(); i++ {
 		if stmt.Elem().Field(i).CanInterface() {
 			kName := typeOfS.Field(i).Tag.Get("json")
-			kValue := stmt.Elem().Field(i)
-			util.Query = append(util.Query, fmt.Sprintf("=%s=%s", kName, kValue)) //query[kName] = kValue.String()
+			kValue := stmt.Elem().Field(i).String()
+			if kValue != "" {
+				util.Query = append(util.Query, fmt.Sprintf("=%s=%s", kName, kValue)) //query[kName] = kValue.String()
+			}
 		}
 	}
 

@@ -10,6 +10,9 @@ func (util *RouterOS) Print(bind interface{}) *RouterOS {
 	//set action last command
 	util.Query[len(util.Query)-1] += "/print"
 
+	//cek filter
+	util.Query = append(util.Query, util.Filter...)
+
 	// Run Query
 	util.Run(util.Query)
 
