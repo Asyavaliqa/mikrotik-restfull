@@ -32,32 +32,32 @@ func New(config Configs) RouterOS {
 	return RouterOS{config.Auth, &routeros.Reply{}, nil, RegisterLog(), []string{}, []string{}}
 }
 
-func (util *RouterOS) Run(query []string) *RouterOS {
-	host := fmt.Sprintf("%s:%s", util.Ip, util.Port)
-	c, err := routeros.Dial(host, util.Username, util.Password)
+func (this *RouterOS) Run(query []string) *RouterOS {
+	host := fmt.Sprintf("%s:%s", this.Ip, this.Port)
+	c, err := routeros.Dial(host, this.Username, this.Password)
 	if err != nil {
-		util.Debug().Msg(fmt.Sprintf("| ERROR | %s", err.Error()))
-		util.Error = err
-		return util
+		this.Debug().Msg(fmt.Sprintf("| ERROR | %s", err.Error()))
+		this.Error = err
+		return this
 	}
 	defer c.Close()
 
 	re, err := c.RunArgs(query)
 	if err != nil {
-		util.Error = err
-		return util
+		this.Error = err
+		return this
 	}
-	util.Reply = re
-	return util
+	this.Reply = re
+	return this
 }
 
-func (util *RouterOS) Command(query string) *RouterOS {
-	util.Query = []string{query}
-	return util
+func (this *RouterOS) Command(query string) *RouterOS {
+	this.Query = []string{query}
+	return this
 }
 
-func (util *RouterOS) DetectError() bool {
-	if util.Error != nil {
+func (this *RouterOS) DetectError() bool {
+	if this.Error != nil {
 		return true
 	}
 	return false

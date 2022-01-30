@@ -1,6 +1,7 @@
 package models
 
 type Secret struct {
+	ID         string `json:".id"`
 	Name       string `json:"name"`
 	Password   string `json:"password"`
 	Service    string `json:"service"`

@@ -6,40 +6,40 @@ import (
 	"strings"
 )
 
-func (util *RouterOS) Scan(bind interface{}) *RouterOS {
+func (this *RouterOS) Scan(bind interface{}) *RouterOS {
 	//set action last command
-	util.Query[len(util.Query)-1] += "/print"
+	this.Query[len(this.Query)-1] += "/print"
 
 	//cek filter
-	util.Query = append(util.Query, util.Filter...)
+	this.Query = append(this.Query, this.Filter...)
 
 	// Run Query
-	util.Run(util.Query)
+	this.Run(this.Query)
 
 	// Deteksi Error
-	if util.DetectError() {
-		return util
+	if this.DetectError() {
+		return this
 	}
 
 	var dataArr []interface{}
-	for i := 0; i < len(util.Reply.Re); i++ {
-		dataArr = append(dataArr, util.Reply.Re[i].Map)
+	for i := 0; i < len(this.Reply.Re); i++ {
+		dataArr = append(dataArr, this.Reply.Re[i].Map)
 	}
 
 	jsonbody, err := json.Marshal(dataArr)
 	if err != nil {
 		// do error check
-		util.Error = err
-		return util
+		this.Error = err
+		return this
 	}
 
 	if err := json.Unmarshal(jsonbody, bind); err != nil {
 		// do error check
-		util.Error = err
-		return util
+		this.Error = err
+		return this
 	}
 
-	util.Debug().Msg(fmt.Sprintf("| DEBUG | [%d Rows] %s", len(util.Re), strings.Join(util.Query, " ")))
-
-	return util
+	this.Debug().Msg(fmt.Sprintf("| DEBUG | [QUERY] %s", strings.Join(this.Query, " ")))
+	this.Debug().Msg(fmt.Sprintf("| DEBUG | [REPLY] %d rows | message %s", len(this.Re), this.Reply.Done.Word))
+	return this
 }

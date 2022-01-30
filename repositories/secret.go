@@ -24,6 +24,11 @@ func (repo SecretRepository) Read(filter models.Secret) (secrets []models.Secret
 	return
 }
 
+func (repo SecretRepository) Edit(filter models.Secret, data models.Secret) (err error) {
+	err = repo.Command("/ppp/secret").SetByID("", &data).Error
+	return
+}
+
 func NewSecretRepository(routerOS *routeros.RouterOS) interfaces.ISecretRepository {
 	return &SecretRepository{
 		RouterOS: routerOS,

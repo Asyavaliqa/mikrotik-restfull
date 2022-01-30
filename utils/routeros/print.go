@@ -6,35 +6,35 @@ import (
 	"strings"
 )
 
-func (util *RouterOS) Print(bind interface{}) *RouterOS {
+func (this *RouterOS) Print(bind interface{}) *RouterOS {
 	//set action last command
-	util.Query[len(util.Query)-1] += "/print"
+	this.Query[len(this.Query)-1] += "/print"
 
 	//cek filter
-	util.Query = append(util.Query, util.Filter...)
+	this.Query = append(this.Query, this.Filter...)
 
 	// Run Query
-	util.Run(util.Query)
+	this.Run(this.Query)
 
 	// Deteksi Error
-	if util.DetectError() {
-		return util
+	if this.DetectError() {
+		return this
 	}
 
 	// Parsing Data Mikrotik
-	jsonbody, err := json.Marshal(util.Reply.Re[0].Map)
+	jsonbody, err := json.Marshal(this.Reply.Re[0].Map)
 	if err != nil {
 		// do error check
-		util.Error = err
-		return util
+		this.Error = err
+		return this
 	}
 
 	if err := json.Unmarshal(jsonbody, bind); err != nil {
 		// do error check
-		util.Error = err
-		return util
+		this.Error = err
+		return this
 	}
-	util.Debug().Msg(fmt.Sprintf("| DEBUG | [%d Fields] %s", len(util.Re[0].Map), strings.Join(util.Query, " ")))
-
-	return util
+	this.Debug().Msg(fmt.Sprintf("| DEBUG | [QUERY] %s", strings.Join(this.Query, " ")))
+	this.Debug().Msg(fmt.Sprintf("| DEBUG | [REPLY] %d fields | message %s", len(this.Re[0].Map), this.Reply.Done.Word))
+	return this
 }

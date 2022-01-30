@@ -9,10 +9,10 @@ import (
 )
 
 var (
-	command    = fmt.Sprintf( "/ppp/secret/add =name=%s =password=%s =service=%s =profile=%s", )
-	address    = "192.168.4.1:8728"
+	command    = fmt.Sprintf(`/ppp/secret/set =name=xx@gmail.com =comment=xx =.id=*15`)
+	address    = "127.0.0.1:28728"
 	username   = "admin"
-	password   = "segopecel12"
+	password   = ""
 	properties = "uptime,version"
 )
 

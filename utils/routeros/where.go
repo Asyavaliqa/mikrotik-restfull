@@ -5,7 +5,7 @@ import (
 	"reflect"
 )
 
-func (util *RouterOS) Where(filter interface{}) *RouterOS {
+func (this *RouterOS) Where(filter interface{}) *RouterOS {
 	var stmt reflect.Value = reflect.ValueOf(filter)
 	if stmt.IsNil() && stmt.CanAddr() {
 		stmt.Set(reflect.New(stmt.Type()))
@@ -17,10 +17,10 @@ func (util *RouterOS) Where(filter interface{}) *RouterOS {
 			kName := typeOfS.Field(i).Tag.Get("json")
 			kValue := stmt.Elem().Field(i).String()
 			if kValue != "" {
-				util.Filter = append(util.Filter, fmt.Sprintf(`?%s=%s`, kName, kValue))
+				this.Filter = append(this.Filter, fmt.Sprintf(`?%s=%s`, kName, kValue))
 			}
 		}
 	}
 
-	return util
+	return this
 }

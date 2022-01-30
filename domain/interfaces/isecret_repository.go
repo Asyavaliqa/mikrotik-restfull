@@ -8,4 +8,6 @@ type ISecretRepository interface {
 	Browse() (secrets []models.Secret, err error)
 
 	Read(filter models.Secret) (secrets []models.Secret, err error)
+
+	Edit(filter models.Secret, data models.Secret) (err error)
 }
