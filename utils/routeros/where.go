@@ -17,7 +17,7 @@ func (util *RouterOS) Where(filter interface{}) *RouterOS {
 			kName := typeOfS.Field(i).Tag.Get("json")
 			kValue := stmt.Elem().Field(i).String()
 			if kValue != "" {
-				util.Filter = append(util.Filter, fmt.Sprintf(`?%s=%s`, kName, kValue)) //query[kName] = kValue.String()
+				util.Filter = append(util.Filter, fmt.Sprintf(`?%s=%s`, kName, kValue))
 			}
 		}
 	}
