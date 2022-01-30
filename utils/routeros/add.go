@@ -25,7 +25,6 @@ func (util *RouterOS) Add(data interface{}) *RouterOS {
 		}
 	}
 
-	fmt.Println(util.Query)
 	util.Run(util.Query)
 
 	return util
