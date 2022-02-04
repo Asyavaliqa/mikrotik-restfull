@@ -58,6 +58,7 @@ func (this *RouterOS) Command(query string) *RouterOS {
 
 func (this *RouterOS) DetectError() bool {
 	if this.Error != nil {
+		this.Debug().Msg(fmt.Sprintf("| DEBUG | [QUERY] %s", strings.Join(this.Query, " ")))
 		return true
 	}
 	return false

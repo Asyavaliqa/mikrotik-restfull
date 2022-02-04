@@ -2,6 +2,7 @@ package routeros
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 )
@@ -15,6 +16,10 @@ func (this *RouterOS) Print(bind interface{}) *RouterOS {
 
 	// Run Query
 	this.Run(this.Query)
+
+	if len(this.Reply.Re) == 0 {
+		this.Error = errors.New("Data Not Found")
+	}
 
 	// Deteksi Error
 	if this.DetectError() {

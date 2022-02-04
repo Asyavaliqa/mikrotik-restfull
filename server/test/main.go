@@ -54,15 +54,18 @@ func main() {
 
 	repo := repositories.NewSecretRepository(&connRouteOS)
 	filter := models.Secret{
-		//ID:      "*B",
-		Comment: "xxxx",
+		Name: "xx@gmail.com",
 	}
-	data := models.Secret{
-		Comment: "asd",
-	}
-	err := repo.Edit(filter, data)
+
+	data, err := repo.Read(filter)
 	if err != nil {
 		fmt.Println(err)
 	}
 
+	fmt.Println(data)
+	// delete secret
+	err = repo.Enable(data.ID)
+	if err != nil {
+		fmt.Println(err)
+	}
 }

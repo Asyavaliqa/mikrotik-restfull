@@ -6,8 +6,6 @@ import (
 	"strings"
 )
 
-//todo: set kxmYexs@MiRLUNe.net comment="asd"
-
 func (this *RouterOS) SetByID(ID string, data interface{}) *RouterOS {
 	//set action last command
 	this.Query[len(this.Query)-1] += "/set"
