@@ -1,6 +1,10 @@
 github.com/bxcodec/faker/v3 v3.7.0 h1:qWAFFwcyVS0ukF0UoJju1wBLO0cuPQ7JdVBPggM8kNo=
 github.com/bxcodec/faker/v3 v3.7.0/go.mod h1:gF31YgnMSMKgkvl+fyEo1xuSMbEuieyqfeslGYFjneM=
 github.com/coreos/go-systemd/v22 v22.3.2/go.mod h1:Y58oyj3AT4RCenI/lSvhwexgC+NSVTIJ3seZv2GcEnc=
+github.com/didintri196/mikorm v0.0.0-20220205111625-1b6751848ff4 h1:HpGOsvoDEo15EsF/sW0riDHiGwxHZd4lv3Pr68V8XSI=
+github.com/didintri196/mikorm v0.0.0-20220205111625-1b6751848ff4/go.mod h1:Zeuslm8h5vPWj4NKRC5SIeYSkXKbfauD+J3+oaQcxO4=
+github.com/didintri196/mikorm v1.0.0 h1:Nr9DMadF6hbSqLDjr3+T46ByujMjSmfSuPAz30hwpcU=
+github.com/didintri196/mikorm v1.0.0/go.mod h1:Zeuslm8h5vPWj4NKRC5SIeYSkXKbfauD+J3+oaQcxO4=
 github.com/godbus/dbus/v5 v5.0.4/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/rs/xid v1.3.0/go.mod h1:trrq9SKmegXys3aeAKXMUTdJsYXVwGY3RLcfgqegfbg=

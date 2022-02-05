@@ -2,22 +2,20 @@ package main
 
 import (
 	"fmt"
+	"github.com/didintri196/mikorm"
 	"github.com/didintri196/mikrotik-restfull/domain/models"
 	"github.com/didintri196/mikrotik-restfull/repositories"
-	"github.com/didintri196/mikrotik-restfull/utils/routeros"
 )
 
 func main() {
-	config := routeros.Configs{
-		Auth: models.Auth{
-			Ip:       "127.0.0.1",
-			Port:     "28728",
-			Username: "admin",
-			Password: "",
-		},
-		Debug: true,
+	config := mikorm.Configs{
+		Ip:        "127.0.0.1",
+		Port:      "28728",
+		Username:  "admin",
+		Password:  "",
+		ModeDebug: true,
 	}
-	connRouteOS := routeros.New(config)
+	connRouteOS := mikorm.New(config)
 
 	//repo := repositories.NewResourceRepository(&connRouteOS)
 	//var data models.Resource
@@ -64,7 +62,7 @@ func main() {
 
 	fmt.Println(data)
 	// delete secret
-	err = repo.Enable(data.ID)
+	err = repo.Disable(data.ID)
 	if err != nil {
 		fmt.Println(err)
 	}
